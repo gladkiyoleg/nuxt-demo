@@ -24,17 +24,17 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
-  async asyncData ({ store }) {
-    const posts = await store.dispatch('blog/fetchPosts')
-    return {
-      posts
-    }
-  },
   head () {
     return {
       title: 'Blog'
     }
+  },
+  computed: {
+    ...mapState({
+      posts: state => state.blog.posts
+    })
   }
 }
 </script>

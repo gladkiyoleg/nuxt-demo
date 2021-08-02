@@ -48,6 +48,7 @@
 
 <script>
 export default {
+  middleware: 'blog',
   data () {
     return {
       clipped: false,
