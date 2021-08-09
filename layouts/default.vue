@@ -9,7 +9,7 @@
     >
       <v-list>
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in menu"
           :key="i"
           :to="item.to"
           router
@@ -31,6 +31,15 @@
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <v-btn
+        v-if="isLoggedIn"
+        text
+        icon
+        @click="logout"
+      >
+        <v-icon>mdi-logout</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -48,7 +57,7 @@
 
 <script>
 export default {
-  middleware: 'blog',
+  middleware: ['blog'],
   data () {
     return {
       clipped: false,
@@ -69,6 +78,18 @@ export default {
           icon: 'mdi-information',
           title: 'About',
           to: '/about'
+        },
+        {
+          icon: 'mdi-login-variant',
+          title: 'Login',
+          to: '/login',
+          beforeLogin: true
+        },
+        {
+          icon: 'mdi-account-circle',
+          title: 'Profile',
+          to: '/profile',
+          protected: true
         }
       ],
       miniVariant: false,
@@ -76,6 +97,31 @@ export default {
       rightDrawer: false,
       title: 'Nuxt demo app'
     }
+  },
+  computed: {
+    isLoggedIn () {
+      return this.$store.getters['user/isLoggedIn']
+    },
+    menu () {
+      return this.items.filter((i) => {
+        if (!this.isLoggedIn) {
+          return !i.protected
+        } else {
+          return !i.beforeLogin
+        }
+      })
+    }
+  },
+  methods: {
+    logout () {
+      this.$store.dispatch('user/logout')
+    }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  ::v-deep.v-list-item {
+    cursor: pointer;
+  }
+</style>

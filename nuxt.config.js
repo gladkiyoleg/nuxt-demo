@@ -39,7 +39,9 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/firebase'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -48,12 +50,29 @@ export default {
     '@nuxtjs/axios'
   ],
 
-  // Axios module configuration: https://go.nuxtjs.dev/config-axios
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyC68L9FkntI_cKfhWQPzdtvXYh_5YLJ-5I',
+      authDomain: 'nuxt-demo-e9a20.firebaseapp.com',
+      projectId: 'nuxt-demo-e9a20',
+      storageBucket: 'nuxt-demo-e9a20.appspot.com',
+      messagingSenderId: '660243195512',
+      appId: '1:660243195512:web:a273b5e5ea3cf76a022f8d'
+    },
+    services: {
+      auth: {
+        initialize: {
+          onAuthStateChangedAction: 'user/onAuthStateChanged'
+        },
+        ssr: true
+      }
+    }
+  },
+
   axios: {
     baseURL: process.env.baseUrl
   },
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {

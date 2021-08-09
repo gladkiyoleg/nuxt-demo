@@ -80,7 +80,8 @@ dist
 # IDE / Editor
 .idea
 
-# Service worker
+# Service workers
+firebase-auth-sw.js
 sw.*
 
 # macOS
