@@ -57,7 +57,6 @@
 
 <script>
 export default {
-  middleware: ['blog'],
   data () {
     return {
       clipped: false,
@@ -70,11 +69,6 @@ export default {
           to: '/'
         },
         {
-          icon: 'mdi-post-outline',
-          title: 'Blog',
-          to: '/blog'
-        },
-        {
           icon: 'mdi-information',
           title: 'About',
           to: '/about'
@@ -82,7 +76,7 @@ export default {
         {
           icon: 'mdi-login-variant',
           title: 'Login',
-          to: '/login',
+          to: '/admin/auth',
           beforeLogin: true
         },
         {

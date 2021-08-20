@@ -1,11 +1,10 @@
 <template>
   <div>
-    <h1>Blog page</h1>
     <div class="post-wrapper">
       <nuxt-link
         v-for="post in posts"
         :key="post.id"
-        :to="{name: 'blog-id', params: {id: post.id}}"
+        :to="`/${post.id}`"
         class="post"
       >
         <v-card class="post-card">
@@ -24,17 +23,13 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
-  head () {
-    return {
-      title: 'Blog'
+  props: {
+    posts: {
+      type: Array,
+      default: () => [],
+      required: true
     }
-  },
-  computed: {
-    ...mapState({
-      posts: state => state.blog.posts
-    })
   }
 }
 </script>

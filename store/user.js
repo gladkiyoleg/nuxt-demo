@@ -42,15 +42,15 @@ export default {
     },
     onAuthStateChanged ({ commit }, { authUser }) {
       if (!authUser) {
-        commit('RESET_STORE')
+        // commit('RESET_STORE')
         return
       }
       if (authUser && authUser.getIdToken) {
         authUser.getIdToken(true).then((res) => {
-          commit('SET_ID_TOKEN', res)
+          // commit('SET_ID_TOKEN', res)
         })
       }
-      commit('SET_USER', authUser)
+      // commit('SET_USER', authUser)
     }
   }
 }

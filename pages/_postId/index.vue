@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="breadcrumbs mt-4 mb-4">
-      <nuxt-link :to="{name: 'blog'}">
+      <nuxt-link to="/">
         home
       </nuxt-link>
       <span>/{{ post.title }}</span>
@@ -11,17 +11,20 @@
       :src="post.image"
       max-width="600px"
     />
-    <p>{{ post.description }}</p>
+    <p>{{ post.body }}</p>
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData ({ store, params }) {
-    const post = await store.dispatch('blog/fetchPost', params.id)
-    return {
-      post
-    }
+  async asyncData ({ store, route, error }) {
+    let post
+    await store.dispatch('blog/fetchPost', route.params.postId).then((res) => {
+      post = res.data
+    }).catch((e) => {
+      error(e)
+    })
+    return { post }
   },
   head () {
     return {
