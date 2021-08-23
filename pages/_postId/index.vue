@@ -7,6 +7,9 @@
       <span>/{{ post.title }}</span>
     </div>
     <h1>{{ post.title }}</h1>
+    <div class="mb-3 mt-3">
+      {{ post.date | dateFormat }}
+    </div>
     <v-img
       :src="post.image"
       max-width="600px"

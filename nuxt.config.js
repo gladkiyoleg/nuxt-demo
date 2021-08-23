@@ -28,6 +28,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~plugins/dateFilter.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -41,7 +42,8 @@ export default {
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv',
     '@nuxtjs/auth-next',
-    '@nuxtjs/firebase'
+    '@nuxtjs/firebase',
+    '@nuxtjs/date-fns'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -89,6 +91,11 @@ export default {
         }
       }
     }
+  },
+
+  loading: {
+    color: '#ffffff',
+    height: '5px'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

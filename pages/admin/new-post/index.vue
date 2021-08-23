@@ -58,6 +58,7 @@ export default {
     }),
     submit () {
       if (this.$refs.form.validate()) {
+        this.post.date = new Date()
         this.createPost(this.post).then(() => {
           this.$router.push('/admin')
         })
