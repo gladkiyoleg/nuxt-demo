@@ -28,10 +28,22 @@ export default {
     }
   },
   actions: {
+    signUp ({ commit }, data) {
+      this.$fire.auth.createUserWithEmailAndPassword(data.email, data.password).then((userCredential) => {
+        return userCredential.user.getIdToken().then((token) => {
+          commit('SET_ID_TOKEN', token)
+          commit('SET_USER', userCredential.user)
+          this.$router.push('/admin')
+        })
+      })
+    },
     login ({ commit }, data) {
       this.$fire.auth.signInWithEmailAndPassword(data.email, data.password).then((userCredential) => {
-        commit('SET_USER', userCredential.user)
-        this.$router.push('/profile')
+        return userCredential.user.getIdToken().then((token) => {
+          commit('SET_ID_TOKEN', token)
+          commit('SET_USER', userCredential.user)
+          this.$router.push('/admin')
+        })
       })
     },
     logout ({ commit }) {
@@ -42,15 +54,15 @@ export default {
     },
     onAuthStateChanged ({ commit }, { authUser }) {
       if (!authUser) {
-        // commit('RESET_STORE')
+        commit('RESET_STORE')
         return
       }
       if (authUser && authUser.getIdToken) {
         authUser.getIdToken(true).then((res) => {
-          // commit('SET_ID_TOKEN', res)
+          commit('SET_ID_TOKEN', res)
         })
       }
-      // commit('SET_USER', authUser)
+      commit('SET_USER', authUser)
     }
   }
 }

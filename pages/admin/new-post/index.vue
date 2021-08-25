@@ -16,17 +16,17 @@
       <v-text-field
         v-model="post.title"
         label="Title"
-        :rules="[v => !!v || 'Field is required']"
+        :rules="requiredFieldRules"
       />
       <v-text-field
         v-model="post.body"
         label="Body"
-        :rules="[v => !!v || 'Field is required']"
+        :rules="requiredFieldRules"
       />
       <v-text-field
         v-model="post.image"
         label="Image URL"
-        :rules="[v => !!v || 'Field is required']"
+        :rules="requiredFieldRules"
       />
       <v-btn
         color="success"
@@ -41,10 +41,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+import { requiredFieldRules } from '@/utils/consts/formRules'
 
 export default {
+  layout: 'admin',
   data () {
     return {
+      requiredFieldRules,
       post: {
         title: '',
         body: '',

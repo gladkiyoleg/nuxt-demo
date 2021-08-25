@@ -1,46 +1,48 @@
 <template>
   <v-app dark>
-    <v-navigation-drawer
-      v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
-      fixed
-      app
-    >
-      <v-list>
-        <v-list-item
-          v-for="(item, i) in menu"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <v-app-bar
-      :clipped-left="clipped"
-      fixed
-      app
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        v-if="isLoggedIn"
-        text
-        icon
-        @click="logout"
+    <client-only>
+      <v-navigation-drawer
+        v-model="drawer"
+        :mini-variant="miniVariant"
+        :clipped="clipped"
+        fixed
+        app
       >
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
-    </v-app-bar>
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in menu"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-action>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title v-text="item.title" />
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+      <v-app-bar
+        :clipped-left="clipped"
+        fixed
+        app
+      >
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+        <v-toolbar-title v-text="title" />
+        <v-spacer />
+        <v-btn
+          v-if="isLoggedIn"
+          text
+          icon
+          @click="logout"
+        >
+          <v-icon>mdi-logout</v-icon>
+        </v-btn>
+      </v-app-bar>
+    </client-only>
     <v-main>
       <v-container>
         <Nuxt />
@@ -76,13 +78,19 @@ export default {
         {
           icon: 'mdi-login-variant',
           title: 'Login',
-          to: '/admin/auth',
-          beforeLogin: true
+          to: '/login',
+          public: true
+        },
+        {
+          icon: 'mdi-login-variant',
+          title: 'Sign up',
+          to: '/sign-up',
+          public: true
         },
         {
           icon: 'mdi-account-circle',
-          title: 'Profile',
-          to: '/profile',
+          title: 'Admin panel',
+          to: '/admin',
           protected: true
         }
       ],
@@ -101,7 +109,7 @@ export default {
         if (!this.isLoggedIn) {
           return !i.protected
         } else {
-          return !i.beforeLogin
+          return !i.public
         }
       })
     }

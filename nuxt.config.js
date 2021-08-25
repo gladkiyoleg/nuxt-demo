@@ -54,12 +54,12 @@ export default {
 
   firebase: {
     config: {
-      apiKey: 'AIzaSyC68L9FkntI_cKfhWQPzdtvXYh_5YLJ-5I',
-      authDomain: 'nuxt-demo-e9a20.firebaseapp.com',
-      projectId: 'nuxt-demo-e9a20',
-      storageBucket: 'nuxt-demo-e9a20.appspot.com',
-      messagingSenderId: '660243195512',
-      appId: '1:660243195512:web:a273b5e5ea3cf76a022f8d'
+      apiKey: process.env.firebaseApiKey,
+      authDomain: process.env.firebaseAuthDomain,
+      projectId: process.env.firebaseProjectId,
+      storageBucket: process.env.firebaseStorageBucket,
+      messagingSenderId: process.env.firebaseMessagingSenderId,
+      appId: process.env.firebaseAppId
     },
     services: {
       auth: {
